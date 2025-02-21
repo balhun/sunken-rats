@@ -1,0 +1,66 @@
+.container {
+    background-color: white;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 10px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th, td {
+    text-align: center;
+    padding: 10px;
+    background-color: #80d5ad;
+    border: 1px solid #205b69;
+    font-size: 13pt;
+    cursor: default;
+}
+
+.joined {
+    background-color: #2cb49c;
+}
+
+.invited {
+    background-color: #5b9d86;
+}
+
+.leader {
+    background-color: lightcoral;
+}
+
+#header th {
+    background-color: #2cad71;
+}
+
+img {
+    border-radius: 10px;
+}
+
+.delete {
+    cursor: pointer;
+    border-radius: 0px;
+    width: 25px;
+    font-weight: bold;
+    color: red;
+    vertical-align: middle;
+}
+
+.copy {
+    background-color: #1dbce4;
+    cursor: pointer;
+}
+
+.center {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 64px;
+    cursor: pointer;
+}
+
+.left {
+    width: 50px;
+}
