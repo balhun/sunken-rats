@@ -1,5 +1,5 @@
 # App
-localFirebaseConfig.json
+localFirebaseConfig.js
 .env
 vite.config.js
 package-lock.json
