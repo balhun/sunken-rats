@@ -2,11 +2,11 @@ import './App.css'
 import { useEffect, useState } from 'react'
 import { Button, Divider, FormControl, FormControlLabel, FormLabel, Radio, RadioGroup, Stack, TextField } from '@mui/material'
 import { initializeApp } from "firebase/app";
-import { localFirebaseConfig } from "/localFirebaseConfig.js";
+import { firebaseConfig } from "/firebaseConfig.js";
 import { addDoc, collection, deleteDoc, doc, getDoc, getFirestore, onSnapshot, updateDoc } from "firebase/firestore";
 import { getAuth, GoogleAuthProvider, onAuthStateChanged, signInWithPopup, signOut } from "firebase/auth";
 
-const app = initializeApp(localFirebaseConfig);
+const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 const auth = getAuth(app);
 
