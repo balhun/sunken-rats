@@ -106,7 +106,6 @@ function App() {
   return (
     <div>
       {auth && user && user.email == "hunorgaming000@gmail.com" ?
-      <div>
         <Stack gap={2} className='container'>
           <TextField id="outlined-basic" label="Document ID for updating" variant="outlined" value={id} onChange={e => setId(e.target.value)}/>
           <Divider />
@@ -146,52 +145,52 @@ function App() {
             </Stack>
         </Stack>
       </Stack>
-      <div className='container'>
-        <table>
-          <thead>
-            <tr id="header">
-              <th>Xbox name</th>
-              <th>Discord name</th>
-              <th>Form page</th>
-              <th>Availability</th>
-              <th>Discord</th>
-              <th>Guild</th>
-              <th className='left'>Left Guild</th>
-              <th>Copy</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr id="header">
-              <td className='leader'>hunor000</td>
-              <td className='leader'>hunor.exe</td>
-              <td className='leader'>-</td>
-              <td className='leader'>-</td>
-              <td className='leader'>Guild Owner</td>
-              <td className='leader'>Guild Owner</td>
-              <td className='leader'></td>
-              <td className='leader'></td>
-            </tr>
-            {data.map(x => (
-              <tr key={x.id} >
-                <td>{x.xbox}</td>
-                <td>{x.discord}</td>
-                <td>{x.form != "-" ? <a target="_blank" href={x.form}>Activity Lookup</a> : "-" }</td>
-                <td>{x.lookup.includes("https://xboxgamertag.com/search/") ? <a target="_blank" href={x.lookup}>Activity Lookup</a> : "-" }</td>
-                <td className={x.discordStatus == "Joined" ? "joined" : "invited"}>{x.discordStatus}</td>
-                <td className={x.guildStatus == "Joined" ? "joined" : x.guildStatus == "Guild Leader" ? "leader" : "invited"}>{x.guildStatus}</td>
-                <td><img className='delete' src="exit.png" alt="X" onClick={() => leftGuild(x.id)}/></td>
-                <td onClick={() => fillFields(x.id)} className='copy'></td>
+      : ""
+      }
+      {auth && user ? 
+        <div className='container'>
+          <table>
+            <thead>
+              <tr id="header">
+                <th>Xbox name</th>
+                <th>Discord name</th>
+                <th>Form page</th>
+                <th>Availability</th>
+                <th>Discord</th>
+                <th>Guild</th>
+                <th className='left'>Left Guild</th>
+                <th>Copy</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
-      </div>
-      :
-      <div className='container'>
-        <img src="google.png" onClick={login} className='center'/>
-      </div>
-    }
+            </thead>
+            <tbody>
+              <tr id="header">
+                <td className='leader'>hunor000</td>
+                <td className='leader'>hunor.exe</td>
+                <td className='leader'>-</td>
+                <td className='leader'>-</td>
+                <td className='leader'>Guild Owner</td>
+                <td className='leader'>Guild Owner</td>
+                <td className='leader'></td>
+                <td className='leader'></td>
+              </tr>
+              {data.map(x => (
+                <tr key={x.id} >
+                  <td>{x.xbox}</td>
+                  <td>{x.discord}</td>
+                  <td>{x.form != "-" ? <a target="_blank" href={x.form}>Activity Lookup</a> : "-" }</td>
+                  <td>{x.lookup.includes("https://xboxgamertag.com/search/") ? <a target="_blank" href={x.lookup}>Activity Lookup</a> : "-" }</td>
+                  <td className={x.discordStatus == "Joined" ? "joined" : "invited"}>{x.discordStatus}</td>
+                  <td className={x.guildStatus == "Joined" ? "joined" : x.guildStatus == "Guild Leader" ? "leader" : "invited"}>{x.guildStatus}</td>
+                  <td><img className='delete' src="exit.png" alt="X" onClick={() => leftGuild(x.id)}/></td>
+                  <td onClick={() => fillFields(x.id)} className='copy'></td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      : <div className='container'>
+          <img src="google.png" onClick={login} className='center'/>
+        </div>}
     </div>
   )
 }
