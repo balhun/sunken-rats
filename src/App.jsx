@@ -145,6 +145,10 @@ function App() {
             </Stack>
         </Stack>
       </Stack>
+      : auth && user ?
+        <div className='container'>
+          <Button sx={{"width" : "200px"}} variant="outlined" onClick={logout} color='secondary'>Log Out</Button>
+        </div>
       : ""
       }
       {auth && user ? 
