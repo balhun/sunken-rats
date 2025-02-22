@@ -91,7 +91,7 @@ function App() {
   }
 
   useEffect(() => {
-    if (auth && user && user.email == "hunorgaming000@gmail.com") {
+    if (auth && user) {
       const unsub = onSnapshot(collection(db, 'guild_members'), (snap) => {
         setData(snap.docs.map(doc => ({ ...doc.data(), id:doc.id })));
       });
