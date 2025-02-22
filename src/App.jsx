@@ -147,10 +147,10 @@ function App() {
         </Stack>
       </Stack>
       : auth && user ?
-        <div className='container'>
+        <Stack gap={2} className='container'>
           <Button sx={{"width" : "200px"}} variant="outlined" onClick={logout} color='secondary'>Log Out</Button>
           <span className='number'>{data.length+1} / 24</span>
-        </div>
+        </Stack>
       : ""
       }
       {auth && user ? 
