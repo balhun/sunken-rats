@@ -137,17 +137,19 @@ function App() {
           <Stack direction="row" sx={{"justifyContent" : "space-between"}}>
             <Stack direction="row" gap={2}>
               <Button sx={{"width" : "200px"}} variant="contained" onClick={upload} color='success'>Upload</Button>
+              <Button sx={{"width" : "200px"}} variant="contained" onClick={updatePlayer} color='secondary'>Update</Button>
               <Button variant="contained" onClick={clearFields} color="error">Clear</Button>
+              <span className='number'>{data.length+1} / 24</span>
             </Stack>
             <Stack direction="row" gap={2}>
               <Button sx={{"width" : "200px"}} variant="outlined" onClick={logout} color='secondary'>Log Out</Button>
-              <Button sx={{"width" : "200px"}} variant="contained" onClick={updatePlayer} color='secondary'>Update</Button>
             </Stack>
         </Stack>
       </Stack>
       : auth && user ?
         <div className='container'>
           <Button sx={{"width" : "200px"}} variant="outlined" onClick={logout} color='secondary'>Log Out</Button>
+          <span className='number'>{data.length+1} / 24</span>
         </div>
       : ""
       }
@@ -181,8 +183,8 @@ function App() {
                 <tr key={x.id} >
                   <td>{x.xbox}</td>
                   <td>{x.discord}</td>
-                  <td>{x.form != "-" ? <a target="_blank" href={x.form}>Activity Lookup</a> : "-" }</td>
-                  <td>{x.lookup.includes("https://xboxgamertag.com/search/") ? <a target="_blank" href={x.lookup}>Activity Lookup</a> : "-" }</td>
+                  <td className='copy'>{x.form != "-" ? <a target="_blank" href={x.form}>Form Page</a> : "-" }</td>
+                  <td className='copy'>{x.lookup.includes("https://xboxgamertag.com/search/") ? <a target="_blank" href={x.lookup}>Activity Lookup</a> : "-" }</td>
                   <td className={x.discordStatus == "Joined" ? "joined" : "invited"}>{x.discordStatus}</td>
                   <td className={x.guildStatus == "Joined" ? "joined" : x.guildStatus == "Guild Leader" ? "leader" : "invited"}>{x.guildStatus}</td>
                   <td><img className='delete' src="exit.png" alt="X" onClick={() => leftGuild(x.id)}/></td>
