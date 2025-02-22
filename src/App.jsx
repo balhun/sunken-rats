@@ -2,9 +2,17 @@ import './App.css'
 import { useEffect, useState } from 'react'
 import { Button, Divider, FormControl, FormControlLabel, FormLabel, Radio, RadioGroup, Stack, TextField } from '@mui/material'
 import { initializeApp } from "firebase/app";
-import { firebaseConfig } from "/firebaseConfig.js";
 import { addDoc, collection, deleteDoc, doc, getDoc, getFirestore, onSnapshot, updateDoc } from "firebase/firestore";
 import { getAuth, GoogleAuthProvider, onAuthStateChanged, signInWithPopup, signOut } from "firebase/auth";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyAXaTk-Z5mCjAQ_xEFp0WPkMWTksB-ON00",
+  authDomain: "sunkenrats-3859e.firebaseapp.com",
+  projectId: "sunkenrats-3859e",
+  storageBucket: "sunkenrats-3859e.firebasestorage.app",
+  messagingSenderId: "481792890187",
+  appId: "1:481792890187:web:315726d0978b97a30584ce"
+};
 
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
@@ -83,11 +91,13 @@ function App() {
   }
 
   useEffect(() => {
-    const unsub = onSnapshot(collection(db, 'guild_members'), (snap) => {
-      setData(snap.docs.map(doc => ({ ...doc.data(), id:doc.id })));
-    });
-    return unsub;
-  },[]);
+    if (auth && user && user.email == "hunorgaming000@gmail.com") {
+      const unsub = onSnapshot(collection(db, 'guild_members'), (snap) => {
+        setData(snap.docs.map(doc => ({ ...doc.data(), id:doc.id })));
+      });
+      return unsub;
+    }
+  },[auth, user]);
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => setUser(currentUser));
@@ -95,51 +105,47 @@ function App() {
 
   return (
     <div>
-      {user && user.email == "hunorgaming000@gmail.com" ? 
+      {auth && user && user.email == "hunorgaming000@gmail.com" ?
+      <div>
         <Stack gap={2} className='container'>
-        <TextField id="outlined-basic" label="Document ID for updating" variant="outlined" value={id} onChange={e => setId(e.target.value)}/>
-        <Divider />
-        <TextField id="outlined-basic" label="Xbox Name" variant="outlined" value={xbox} onChange={e => setXbox(e.target.value)}/>
-        <TextField id="outlined-basic" label="Discord Name" variant="outlined" value={discord} onChange={e => setDiscord(e.target.value)}/>
-        <TextField id="outlined-basic" label="Form page" variant="outlined" value={form} onChange={e => setForm(e.target.value)}/>
-        <TextField id="outlined-basic" label="Xbox lookup" variant="outlined" value={lookup} onChange={e => setLookup(e.target.value)}/>
-        <FormControl>
-          <FormLabel id="discordformgroup">Discord Status</FormLabel>
-          <RadioGroup
-            row
-            aria-labelledby="discordformgroup"
-            name="discordformgroup"
-            value={discordStatus}
-            onChange={e => setDiscordStatus(e.target.value)}
-          >
-            <FormControlLabel value="Joined" control={<Radio />} label="Joined" />
-            <FormControlLabel value="Invited" control={<Radio />} label="Invited" />
-          </RadioGroup>
-        </FormControl>
-        <FormControl>
-          <FormLabel id="guildformgroup">Guild Status</FormLabel>
-          <RadioGroup row aria-labelledby="guildformgroup" name="guildformgroup" value={guildStatus} onChange={e => setGuildStatus(e.target.value)}>
-            <FormControlLabel value="Joined" control={<Radio />} label="Joined" />
-            <FormControlLabel value="Invited" control={<Radio />} label="Invited" />
-            <FormControlLabel value="Guild Leader" control={<Radio />} label="Guild Leader" />
-          </RadioGroup>
-        </FormControl>
-        <Stack direction="row" sx={{"justifyContent" : "space-between"}}>
-          <Stack direction="row" gap={2}>
-            <Button sx={{"width" : "200px"}} variant="contained" onClick={upload} color='success'>Upload</Button>
-            <Button variant="contained" onClick={clearFields} color="error">Clear</Button>
-          </Stack>
-          <Stack direction="row" gap={2}>
-            <Button sx={{"width" : "200px"}} variant="outlined" onClick={logout} color='secondary'>Log Out</Button>
-            <Button sx={{"width" : "200px"}} variant="contained" onClick={updatePlayer} color='secondary'>Update</Button>
-          </Stack>
+          <TextField id="outlined-basic" label="Document ID for updating" variant="outlined" value={id} onChange={e => setId(e.target.value)}/>
+          <Divider />
+          <TextField id="outlined-basic" label="Xbox Name" variant="outlined" value={xbox} onChange={e => setXbox(e.target.value)}/>
+          <TextField id="outlined-basic" label="Discord Name" variant="outlined" value={discord} onChange={e => setDiscord(e.target.value)}/>
+          <TextField id="outlined-basic" label="Form page" variant="outlined" value={form} onChange={e => setForm(e.target.value)}/>
+          <TextField id="outlined-basic" label="Xbox lookup" variant="outlined" value={lookup} onChange={e => setLookup(e.target.value)}/>
+          <FormControl>
+            <FormLabel id="discordformgroup">Discord Status</FormLabel>
+            <RadioGroup
+              row
+              aria-labelledby="discordformgroup"
+              name="discordformgroup"
+              value={discordStatus}
+              onChange={e => setDiscordStatus(e.target.value)}
+            >
+              <FormControlLabel value="Joined" control={<Radio />} label="Joined" />
+              <FormControlLabel value="Invited" control={<Radio />} label="Invited" />
+            </RadioGroup>
+          </FormControl>
+          <FormControl>
+            <FormLabel id="guildformgroup">Guild Status</FormLabel>
+            <RadioGroup row aria-labelledby="guildformgroup" name="guildformgroup" value={guildStatus} onChange={e => setGuildStatus(e.target.value)}>
+              <FormControlLabel value="Joined" control={<Radio />} label="Joined" />
+              <FormControlLabel value="Invited" control={<Radio />} label="Invited" />
+              <FormControlLabel value="Guild Leader" control={<Radio />} label="Guild Leader" />
+            </RadioGroup>
+          </FormControl>
+          <Stack direction="row" sx={{"justifyContent" : "space-between"}}>
+            <Stack direction="row" gap={2}>
+              <Button sx={{"width" : "200px"}} variant="contained" onClick={upload} color='success'>Upload</Button>
+              <Button variant="contained" onClick={clearFields} color="error">Clear</Button>
+            </Stack>
+            <Stack direction="row" gap={2}>
+              <Button sx={{"width" : "200px"}} variant="outlined" onClick={logout} color='secondary'>Log Out</Button>
+              <Button sx={{"width" : "200px"}} variant="contained" onClick={updatePlayer} color='secondary'>Update</Button>
+            </Stack>
         </Stack>
       </Stack>
-      :
-      <div className='container'>
-        <img src="google.png" onClick={login} className='center'/>
-      </div>
-    }
       <div className='container'>
         <table>
           <thead>
@@ -180,6 +186,12 @@ function App() {
           </tbody>
         </table>
       </div>
+      </div>
+      :
+      <div className='container'>
+        <img src="google.png" onClick={login} className='center'/>
+      </div>
+    }
     </div>
   )
 }
